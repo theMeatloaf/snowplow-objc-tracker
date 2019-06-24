@@ -56,6 +56,7 @@ NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPDesktopContextSchema  = @"iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0";
 NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-1";
 NSString * const kSPScreenContextSchema   = @"iglu:com.snowplowanalytics.mobile/screen/jsonschema/1-0-0";
+NSString * const kSPGDPRContextSchema     = @"iglu:com.snowplowanalytics.snowplow/gdpr_context/jsonschema/1-0-0";
 NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0";
 NSString * const kSPConsentDocumentSchema = @"iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0";
 NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0";

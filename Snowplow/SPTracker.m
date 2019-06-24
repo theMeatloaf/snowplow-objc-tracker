@@ -32,6 +32,7 @@
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
 #import "SNOWGlobalContexts.h"
+#import "SNOWContext.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
@@ -245,6 +246,20 @@ void uncaughtExceptionHandler(NSException *exception) {
     } else if (_builderFinished && _session == nil && sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval andTracker:self];
     }
+}
+
+- (void) setGDPRContextWithBasis:(SNOWProcessingBasis)basisForProcessing
+         withDocumentDescription:(NSString *)documentDescription
+             withDocumentVersion:(NSString *)documentVersion
+                  withDocumentId:(NSString *)documentId {
+    SPPayload * pl = [[SPPayload alloc] init];
+    [pl addValueToPayload:documentId forKey:@"documentId"];
+    [pl addValueToPayload:documentVersion forKey:@"documentVersion"];
+    [pl addValueToPayload:documentDescription forKey:@"documentDescription"];
+    [pl addValueToPayload:processingBasisString(basisForProcessing) forKey:@"basisForProcessing"];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:kSPGDPRContextSchema andPayload:pl];
+    SNOWContext * sc = [[SNOWContext alloc] initWithContext:sdj];
+    [_globalContexts addContext:sc];
 }
 
 - (void) setScreenContext:(BOOL)screenContext {

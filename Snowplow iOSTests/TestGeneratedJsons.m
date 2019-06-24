@@ -32,6 +32,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
 #import "SPUtilities.h"
+#import "SNOWGlobalContexts.h"
 
 @interface TestGeneratedJsons : XCTestCase
 
@@ -91,6 +92,25 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     NSDictionary * data = [subject getGeoLocationDict];
     NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:data] getAsDictionary];
     XCTAssertTrue([validator validateJson:json]);
+}
+
+- (void)testGDPRContextJson {
+    SPTracker * tracker = [self getTracker:@"acme.fake.url"];
+    SNOWGlobalContexts * sgc = [tracker globalContexts];
+    SPPayload * payl = [[SPPayload alloc]initWithNSDictionary:@{}];
+    NSArray * contexts = [sgc evaluateWithPayload:payl];
+    NSDictionary * data = @{
+                           @"basisForProcessing" : @"Contract",
+                           @"documentDescription" : @"descriptionOfDoc",
+                           @"documentVersion" : @"version1",
+                           @"documentId" : @"id2"
+                           };
+    NSDictionary * expectedJson = [[[SPSelfDescribingJson alloc] initWithSchema:kSPGDPRContextSchema andData:data] getAsDictionary];
+    NSInteger indexOfFound = [contexts indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        return [expectedJson isEqualToDictionary:[obj getAsDictionary]];
+    }];
+    XCTAssertNotEqual(NSNotFound, indexOfFound);
+    // TODO (add schema first): XCTAssertTrue([validator validateJson:[[contexts objectAtIndex:indexOfFound] getAsDictionary]]);
 }
 
 - (void)testStructuredEventPayloadJson  {
@@ -395,6 +415,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
         [builder setTrackerNamespace:@"aNamespace"];
         [builder setBase64Encoded:NO];
         [builder setSessionContext:YES];
+        [builder setGDPRContextWithBasis:SNOWProcessingBasisContract withDocumentDescription:@"descriptionOfDoc" withDocumentVersion:@"version1" withDocumentId:@"id2"];
     }];
     return tracker;
 }
