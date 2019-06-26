@@ -184,6 +184,7 @@
 		75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5F121FA35BC00A5B8FC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BCD027922C4205B000C2F63 /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -376,6 +377,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BCD027922C4205B000C2F63 /* SnowplowTracker.framework in Frameworks */,
 				75F9C5D321FA352800A5B8FC /* FMDB.framework in Frameworks */,
 				75F9C5D421FA352800A5B8FC /* Reachability.framework in Frameworks */,
 				75F9C5D221FA2E9F00A5B8FC /* CoreTelephony.framework in Frameworks */,
