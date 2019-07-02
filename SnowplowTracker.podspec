@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
 
   s.requires_arc = true
+  s.static_framework = true
 
   s.ios.source_files = 'Snowplow/*.swift'
   s.osx.exclude_files = 'Snowplow/UIViewController+SPScreenView_SWIZZLE.*'
